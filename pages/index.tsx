@@ -12,9 +12,9 @@ export default function Login() {
 
   console.log('State information: ', state, dispatch);
 
-  // const { clientId } = state;
+  const { clientId } = state;
 
-  // console.log('Client Id: ', clientId);
+  console.log('Client Id: ', clientId);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
