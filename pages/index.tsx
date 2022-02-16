@@ -8,13 +8,18 @@ export default function Login() {
   const router = useRouter();
 
   // const { user, login, contextValue } = useAppContext();
-  const { contextValue } = useAppContext();
+  const { state, dispatch } = useAppContext();
+
+  console.log('State information: ', state, dispatch);
+
+  // const { clientId } = state;
+
+  // console.log('Client Id: ', clientId);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const testContext = () => {
-    console.log('State information: ', contextValue);
     alert(`Loggin in... ${username} ${password}`);
 
     if (username === undefined || username == '') return;

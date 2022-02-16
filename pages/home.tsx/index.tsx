@@ -4,8 +4,8 @@ import { useAppContext } from '../../context/AppContext';
 export default function Home() {
   const router = useRouter();
   // const { user, login, contextValue } = useAppContext();
-  const { contextValue } = useAppContext();
-  console.log('Page 2 state values: ', contextValue);
+  const { state, dispatch } = useAppContext();
+  console.log('Page 2 state values: ', state, dispatch);
 
   const logOutUser = () => {
     // logout();

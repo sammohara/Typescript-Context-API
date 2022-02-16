@@ -16,6 +16,10 @@ type appContextType = {
   logout: () => void;
 };
 
+type InitialValues = {
+  clientId: number;
+};
+
 const appContextDefaultValues: appContextType = {
   user: null,
   contextValue: {},
@@ -24,7 +28,7 @@ const appContextDefaultValues: appContextType = {
 };
 
 // Create Context
-const AppContext = createContext(null);
+const AppContext = createContext<any>(initialState);
 
 export function useAppContext() {
   return useContext(AppContext);
@@ -37,27 +41,12 @@ type Props = {
 export function AppProvider({ children }: Props) {
   // const [appState, setAppState] = useState({});
 
-  const { state, dispatch }: any = useReducer(AppReducer, initialState);
-  console.log('State: ', state, 'Dispatch: ', dispatch);
+  const [state, dispatch] = useReducer(AppReducer, initialState);
+  console.log('Context || State: ', state, 'Dispatch: ', dispatch);
 
   const [user, setUser] = useState<boolean>(null);
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
-
-  const login = () => {
-    setUser(true);
-  };
-
-  const logout = () => {
-    setUser(false);
-  };
-
-  const value = {
-    user,
-    login,
-    contextValue,
-    logout,
-  };
 
   return (
     <>
