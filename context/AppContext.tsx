@@ -11,7 +11,6 @@ import React, {
 import { AppReducer, initialState } from './AppReducer';
 
 type InitialStateType = {
-  // clientId: string;
   state: any;
   dispatch: React.Dispatch<any>;
 };
@@ -23,14 +22,9 @@ type appContextType = {
   logout: () => void;
 };
 
-type InitialValues = {
-  clientId: string;
-};
-
 const appContextDefaultValues: appContextType = {
   user: null,
   contextValue: {
-    // clientId: initialState.clientId,
     state: null,
     dispatch: null,
   },
