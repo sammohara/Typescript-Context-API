@@ -10,22 +10,25 @@ export default function Login() {
   // const { user, login, contextValue } = useAppContext();
   const { state, dispatch } = useAppContext();
 
-  console.log('State information: ', state, dispatch);
+  // console.log('State information: ', state, dispatch);
 
   const { clientId } = state;
 
-  console.log('Client Id: ', clientId);
+  // console.log('Client Id: ', clientId);
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const testContext = () => {
-    alert(`Loggin in... ${username} ${password}`);
+    console.log(`Loggin in... ${username} ${password}`);
 
     if (username === undefined || username == '') return;
     if (password === undefined || password == '') return;
 
     // login(); // This is what sets the difference... Instantiate the state.
+    dispatch({ type: 'assign_client_id', value: username });
+
+    console.log('Updated ClientId: ', clientId);
 
     router.push('home');
   };

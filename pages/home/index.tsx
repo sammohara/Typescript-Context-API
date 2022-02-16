@@ -5,7 +5,10 @@ export default function Home() {
   const router = useRouter();
   // const { user, login, contextValue } = useAppContext();
   const { state, dispatch } = useAppContext();
-  console.log('Page 2 state values: ', state, dispatch);
+  // console.log('Page 2 state values: ', state, dispatch);
+  const { clientId } = state;
+
+  console.log('Page refresh ClientID: ', clientId);
 
   const logOutUser = () => {
     // logout();
@@ -22,7 +25,7 @@ export default function Home() {
           <br />
           Password is:
           <br />
-          Logged in:
+          Logged in: {clientId}
         </p>
         <button onClick={() => logOutUser()}>Logout</button>
       </body>
