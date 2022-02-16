@@ -1,5 +1,6 @@
 import React, {
   createContext,
+  useEffect,
   useContext,
   useReducer,
   useMemo,
@@ -42,7 +43,24 @@ export function AppProvider({ children }: Props) {
   // const [appState, setAppState] = useState({});
 
   const [state, dispatch] = useReducer(AppReducer, initialState);
-  console.log('Context || State: ', state, 'Dispatch: ', dispatch);
+  // console.log('Context || State: ', state, 'Dispatch: ', dispatch);
+
+  useEffect(() => {
+    console.log('1st useEffect');
+    if (JSON.parse(localStorage.getItem('lealta-member-state'))) {
+      dispatch({
+        type: 'init_stored',
+        value: JSON.parse(localStorage.getItem('lealta-member-state')),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log('2nd Use effect.');
+    if (state !== initialState) {
+      localStorage.setItem('lealta-member-state', JSON.stringify(state));
+    }
+  }, [state]);
 
   const [user, setUser] = useState<boolean>(null);
 
