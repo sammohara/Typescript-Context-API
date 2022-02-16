@@ -10,26 +10,36 @@ import React, {
 } from 'react';
 import { AppReducer, initialState } from './AppReducer';
 
+type InitialStateType = {
+  // clientId: string;
+  state: any;
+  dispatch: React.Dispatch<any>;
+};
+
 type appContextType = {
   user: boolean;
-  contextValue: Record<string, unknown>;
+  contextValue: InitialStateType;
   login: () => void;
   logout: () => void;
 };
 
 type InitialValues = {
-  clientId: number;
+  clientId: string;
 };
 
 const appContextDefaultValues: appContextType = {
   user: null,
-  contextValue: {},
+  contextValue: {
+    // clientId: initialState.clientId,
+    state: null,
+    dispatch: null,
+  },
   login: () => {},
   logout: () => {},
 };
 
 // Create Context
-const AppContext = createContext<any>(initialState);
+const AppContext = createContext<appContextType>(appContextDefaultValues);
 
 export function useAppContext() {
   return useContext(AppContext);
@@ -46,7 +56,6 @@ export function AppProvider({ children }: Props) {
   // console.log('Context || State: ', state, 'Dispatch: ', dispatch);
 
   useEffect(() => {
-    console.log('1st useEffect');
     if (JSON.parse(localStorage.getItem('lealta-member-state'))) {
       dispatch({
         type: 'init_stored',
@@ -56,7 +65,6 @@ export function AppProvider({ children }: Props) {
   }, []);
 
   useEffect(() => {
-    console.log('2nd Use effect.');
     if (state !== initialState) {
       localStorage.setItem('lealta-member-state', JSON.stringify(state));
     }
@@ -66,9 +74,24 @@ export function AppProvider({ children }: Props) {
 
   const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
 
+  const login = () => {
+    setUser(true);
+  };
+
+  const logout = () => {
+    setUser(false);
+  };
+
+  const value = {
+    user,
+    contextValue,
+    login,
+    logout,
+  };
+
   return (
     <>
-      <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
+      <AppContext.Provider value={value}>{children}</AppContext.Provider>
       {/* <AppContext.Provider value={value}>{children}</AppContext.Provider> */}
     </>
   );

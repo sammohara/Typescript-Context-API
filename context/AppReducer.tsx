@@ -1,11 +1,10 @@
 export const initialState = {
-  clientId: 0,
+  clientId: '0',
 };
 
 export const AppReducer = (state, action) => {
   switch (action.type) {
     case 'init_stored': {
-      console.log('InitStored');
       return action.value;
     }
     case 'assign_client_id': {

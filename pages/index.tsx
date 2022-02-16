@@ -7,12 +7,12 @@ import styles from '../styles/Home.module.css';
 export default function Login() {
   const router = useRouter();
 
-  // const { user, login, contextValue } = useAppContext();
-  const { state, dispatch } = useAppContext();
+  const { user, login, contextValue } = useAppContext();
+  // const { state, dispatch } = contextValue;
 
   // console.log('State information: ', state, dispatch);
 
-  const { clientId } = state;
+  const { clientId } = contextValue.state;
 
   // console.log('Client Id: ', clientId);
 
@@ -20,13 +20,13 @@ export default function Login() {
   const [password, setPassword] = useState('');
 
   const testContext = () => {
-    console.log(`Loggin in... ${username} ${password}`);
+    console.log(`Logging in... ${username} ${password}`);
 
     if (username === undefined || username == '') return;
     if (password === undefined || password == '') return;
 
     // login(); // This is what sets the difference... Instantiate the state.
-    dispatch({ type: 'assign_client_id', value: username });
+    contextValue.dispatch({ type: 'assign_client_id', value: username });
 
     console.log('Updated ClientId: ', clientId);
 
